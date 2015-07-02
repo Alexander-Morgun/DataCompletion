@@ -51,18 +51,6 @@ class Filler:
         return answer
 
 
-def get_test_data(data, threshold):
-    result = data.copy().astype(float)
-    result.iloc[np.random.sample(result.shape) < threshold] = np.NaN
-    return result
-
-
-def test_filler(filler, data, threshold):
-    answer = data
-    test_data = get_test_data(data, threshold)
-    filler_answer = filler.predict(test_data.values)
-    return ((filler_answer - answer)**2).mean()
-
 data = pd.read_csv('in.csv', index_col=0)
 filler = Filler()
 answer = pd.DataFrame(filler.predict(data.values),
